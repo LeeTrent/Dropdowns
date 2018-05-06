@@ -1,0 +1,36 @@
+@page
+@model Dropdowns.Pages.Corporations.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Corporation[0].CorporationName)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Corporation) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CorporationName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CorporationID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.CorporationID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CorporationID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
