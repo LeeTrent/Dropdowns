@@ -23,7 +23,9 @@ namespace Dropdowns.Pages.Corporations
 
         public async Task OnGetAsync()
         {
-            Corporation = await _context.Corporations.ToListAsync();
+            Corporation = await _context.Corporations
+                .Include(c => c.Continent)
+                .Include(c => c.Country).ToListAsync();
         }
     }
 }

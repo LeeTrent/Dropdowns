@@ -11,9 +11,10 @@ using System;
 namespace Dropdowns.Migrations
 {
     [DbContext(typeof(DropdownContext))]
-    partial class DropdownContextModelSnapshot : ModelSnapshot
+    [Migration("20180507011703_AddContinentToCorporation")]
+    partial class AddContinentToCorporation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -30,12 +30,16 @@ namespace Dropdowns.Pages.Corporations
                 return NotFound();
             }
 
-            Corporation = await _context.Corporations.SingleOrDefaultAsync(m => m.CorporationID == id);
+            Corporation = await _context.Corporations
+                .Include(c => c.Continent)
+                .Include(c => c.Country).SingleOrDefaultAsync(m => m.CorporationID == id);
 
             if (Corporation == null)
             {
                 return NotFound();
             }
+           ViewData["ContinentID"] = new SelectList(_context.Continents, "ContinentID", "ContinentID");
+           ViewData["CountryID"] = new SelectList(_context.Contries, "CountryID", "CountryID");
             return Page();
         }
 

@@ -21,6 +21,8 @@ namespace Dropdowns.Pages.Corporations
 
         public IActionResult OnGet()
         {
+        ViewData["ContinentID"] = new SelectList(_context.Continents, "ContinentID", "ContinentName");
+        ViewData["CountryID"] = new SelectList(_context.Contries, "CountryID", "CountryName");
             return Page();
         }
 
