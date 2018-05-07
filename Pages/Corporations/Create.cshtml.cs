@@ -41,5 +41,11 @@ namespace Dropdowns.Pages.Corporations
 
             return RedirectToPage("./Index");
         }
+
+       public JsonResult OnGetCountiesInContinent(int contID) 
+        {
+            List<Country> countryList = _context.Contries.Where( c => c.ContinentID == contID ).ToList();
+            return new JsonResult(new SelectList(countryList, "CountryID", "CountryName"));
+        }        
     }
 }

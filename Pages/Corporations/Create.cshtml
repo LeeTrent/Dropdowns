@@ -14,19 +14,19 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Corporation.CorporationName" class="control-label"></label>
+                <label asp-for="Corporation.CorporationName" class="control-label"></label>:
                 <input asp-for="Corporation.CorporationName" class="form-control" />
                 <span asp-validation-for="Corporation.CorporationName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Corporation.ContinentID" class="control-label"></label>
-                <select asp-for="Corporation.ContinentID" class ="form-control" asp-items="ViewBag.ContinentID">
-                    <option value="">-- Select Corporation --</option>  
+                <label asp-for="Corporation.Continent" class="control-label"></label>:
+                <select id="ContinentsSelectObj" asp-for="Corporation.ContinentID" class ="form-control" asp-items="ViewBag.ContinentID">
+                    <option value="">-- Select Continent --</option>  
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Corporation.CountryID" class="control-label"></label>
-                <select asp-for="Corporation.CountryID" class ="form-control" asp-items="ViewBag.CountryID">
+                <label asp-for="    Corporation.Country" class="control-label"></label>:
+                <select id="CountriesSelectObj" asp-for="Corporation.CountryID" class ="form-control" asp-items="ViewBag.CountryID">
                     <option value="">-- Select Country --</option>
                 </select>
             </div>
@@ -43,4 +43,31 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function() {
+            $("#ContinentsSelectObj").change(function() {   
+                var selectedContinent = $("#ContinentsSelectObj").val();
+                var coutriesSelectObject = $('#CountriesSelectObj');
+                coutriesSelectObject.empty();
+                if (selectedContinent != null && selectedContinent != '') {
+                     $.ajax({
+                        type: 'GET',
+                        url: '/Corporations/Create?handler=CountiesInContinent',
+                        contentType: "applications/json",
+                        data: {
+                            contID: selectedContinent
+                        },
+                        success: function(data) {
+                            $.each(data, function(idx, country) {
+                                coutriesSelectObject.append('<option value="' + country.value + '">' + country.text + '</option>');
+                            });
+                        },
+                        error: function(exc) {
+                            alert("error");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 }
