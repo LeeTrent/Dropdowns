@@ -44,6 +44,11 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
+        $(document).ready(function() {
+            $("#CountriesSelectObj").prop("disabled", true);
+        });    
+    </script>
+    <script>
         $(function() {
             $("#ContinentsSelectObj").change(function() {   
                 var selectedContinent = $("#ContinentsSelectObj").val();
@@ -58,6 +63,7 @@
                             contID: selectedContinent
                         },
                         success: function(data) {
+                            $("#CountriesSelectObj").prop("disabled", false);
                             $.each(data, function(idx, country) {
                                 coutriesSelectObject.append('<option value="' + country.value + '">' + country.text + '</option>');
                             });
