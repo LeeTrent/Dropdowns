@@ -25,11 +25,15 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="    Corporation.Country" class="control-label"></label>:
+                <label asp-for="Corporation.Country" class="control-label"></label>:
                 <select id="CountriesSelectObj" asp-for="Corporation.CountryID" class ="form-control" asp-items="ViewBag.CountryID">
                     <option value="">-- Select Country --</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label class="control-label">Other Country</label>:
+                <input id="otherCountryInput" class="form-control" />
+            </div>            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -46,6 +50,7 @@
     <script>
         $(document).ready(function() {
             $("#CountriesSelectObj").prop("disabled", true);
+            $("#otherCountryInput").hide();
         });    
     </script>
     <script>
@@ -72,6 +77,16 @@
                             alert("error");
                         }
                     });
+                }
+            });
+        });
+    </script>
+    <script>
+        $(function() {
+            $("#CountriesSelectObj").change(function() { 
+                var selectedCountry = $("#CountriesSelectObj").val();
+                if ( selectedCountry == 48 ) {
+                    $("#otherCountryInput").show();
                 }
             });
         });
